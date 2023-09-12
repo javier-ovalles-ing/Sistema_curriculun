@@ -8,14 +8,21 @@
     <title>Document</title>
     @vite(['resources/css/app.scss','resources/js/app.js'])   
     
-    
-   
+        @if(session('mensaje'))
+            <script type="module">
+                Swal.fire({
+                            icon:"success",     
+                            title:"{{session('mensaje')}}"
+                        });
+            </script>
+        @endif
+            
 </head>
 <body>
     <x-navegation/>
-    <main class="content">
+    <main class="container">  
         {{$slot}}
-    </main>
+    </main>,,
     <footer>
         <script type="module">
             let table = new DataTable('#table_id', {"pageLength":3,
