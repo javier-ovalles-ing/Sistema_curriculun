@@ -25,12 +25,13 @@
                             <td  scope="row">{{
                                         $empleado->primernombre.' '.
                                         $empleado->segundonombre.' '.
-                                        $empleado->primerapellido.' '.$empleado->segundoapellido
+                                        $empleado->primerapellido.' '.
+                                        $empleado->segundoapellido
                                         }}
                             </td>
                             
                             <td><img width="100" src='{{Storage::url($empleado->foto)}}'></td>
-                            <td><a href="{{Storage::url($empleado->cv)}}" >{{Storage::url($empleado->cv)}}</a></td>
+                            <td><a href="{{Storage::url($empleado->cv)}}" >ver curriculum</a></td>
                             <td>{{$empleado->puesto->nombredelpuesto}}</td>
                             <td>
                                 {{Carbon\Carbon::parse($empleado->fechaingreso)
@@ -39,6 +40,9 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <div class="btn-group" role="group" aria-label="Basic example">
+                                        <div>
+                                            <a href="{{route('empleado.carta',$empleado)}}" class="btn btn-success">Carta</a>
+                                        </div>
                                         <form action="{{route('empleado.editar',$empleado)}}" method="get">
                                             @csrf 
                                             <input class="btn btn-primary" type="submit" value="editar" /> 

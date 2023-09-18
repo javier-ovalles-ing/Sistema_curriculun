@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Empleado;
 use App\Models\Puesto;
+use Carbon\Carbon;
 
 class EmpleadoController extends Controller
 {
     //
+    public function __construct(){
+
+        $this->middleware('auth',['except'=>['']]);                                       
+    }
 
     public function show(){
 
@@ -89,4 +94,35 @@ class EmpleadoController extends Controller
 
         return to_route('empleado.index')->with('mensaje','empleado'.$empleado->primernombre.' eliminado');
     }
+
+    public function download(Empleado $empleado){
+
+        $nombre = $empleado->primernombre.' '
+                 .$empleado->segundonombre.' '
+                 .$empleado->primerapellido.' '
+                 .$empleado->segundoapellido;
+
+        
+        $fechaInicio = Carbon::parse($empleado->fechaingreso);
+        $fechaFin = Carbon::now();
+        $anos = $fechaInicio->diffInYears($fechaFin);
+        
+        
+       
+        $puesto = $empleado->puesto->nombredelpuesto;
+
+        @dd($anos);
+
+        $data = [
+             'nombre' => $nombre,
+             'anos' => $anos,
+             'puesto' => $puesto
+        ];
+
+    
+
+    $pdf = \PDF::loadView('empleado.vista-pdf', $data);
+
+    return $pdf->download('archivo.pdf');
+}
 }

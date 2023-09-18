@@ -28,7 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home')->middleware('auth');
 
-Route::get('/user',[UserController::class,'show'])->name('user.index')->middleware('auth');
+Route::get('/user',[UserController::class,'show'])->name('user.index');
 Route::get('/user/crear',[UserController::class,'crear'])->name('user.crear');
 Route::post('/user/guardar',[UserController::class,'guardar'])->name('user.guardar');
 Route::get('/user/{user}/editar',[UserController::class,'editar'])->name('user.editar');
@@ -52,6 +52,9 @@ Route::post('/empleado/guardar',[EmpleadoController::class,'guardar'])->name('em
 Route::get('/empleado/{empleado}/editar',[EmpleadoController::class,'editar'])->name('empleado.editar');
 Route::patch('/empleado/{empleado}',[EmpleadoController::class,'actualizar'])->name('empleado.actualizar');
 Route::delete('/empleado/{empleado}', [EmpleadoController::class, 'borrar'])->name('empleado.borrar');
+
+Route::get('/empeado/{empleado}/carta',[EmpleadoController::class,'download'])->name('empleado.carta');
+
 // reseteo contraseña
 
 Route::get('/forgot-password', [forgotPasswordController::class,'enviarFormulario'])->middleware('guest')->name('password.request');

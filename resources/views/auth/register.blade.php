@@ -8,7 +8,7 @@
                 @csrf
                
                 <div class="form-group">
-                    <label for="email">Direccion de correo</label>
+                    <label for="email">Nombre: </label>
                     <input 
                         type="text" 
                         class="form-control" 

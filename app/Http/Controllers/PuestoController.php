@@ -7,6 +7,10 @@ use App\Models\Puesto;
 
 class PuestoController extends Controller
 {
+    public function __construct(){
+
+        $this->middleware('auth',['except'=>['']]);                                       
+    }
     
     public function show(){
         $puestos = Puesto::get();
